@@ -27,7 +27,7 @@ class NumberBaseBall extends Component {
         if (value === answer.join('')) {
             this.setState((prevState) => {
                 return {
-                    result: value + ' 홈런!!',
+                    result: prevState.value + ' 홈런!!',
                     value: ''
                 }
             });
@@ -42,8 +42,10 @@ class NumberBaseBall extends Component {
             let strike = 0;
             let ball = 0;
             if (tries.length >= 9) {
-                this.setState({
-                    result: `실패하였습니다. 답은  ${answer} 이었습니다.`
+                this.setState((prevState) => {
+                    return {
+                        result: `실패하였습니다. 답은  ${prevState.answer} 이었습니다.`
+                    }
                 })
                 alert('새로운 게임을 시작합니다.')
                 this.setState({
@@ -60,10 +62,12 @@ class NumberBaseBall extends Component {
                     }
                 }
                 let tryContent = {try: value, result: ` ${strike} 스트라이크 ${ball} 볼 입니다.`}
-                this.setState({
-                    result: '땡!',
-                    value: '',
-                    tries: [...tries, tryContent]
+                this.setState((prevState) => {
+                    return {
+                        result: '땡!',
+                        value: '',
+                        tries: [...prevState.tries, tryContent]
+                    }
                 })
             }
         }
