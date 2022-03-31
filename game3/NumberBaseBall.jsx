@@ -93,9 +93,9 @@ class NumberBaseBall extends Component {
                 <div>
                 </div>
                 <ul>
-                    {tries.map((v) => {
+                    {tries.map((v, i) => {
                         return (
-                            <Try tryInfo={v}/>
+                            <Try key={`${i + 1} 차 시도`} tryInfo={v}/>
                         );
                     })}
                 </ul>
