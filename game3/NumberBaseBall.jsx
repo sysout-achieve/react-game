@@ -23,10 +23,19 @@ class NumberBaseBall extends Component {
     onSubmitForm = (e) => {
         const {answer, value, tries} = this.state
         e.preventDefault();
+        console.log(answer)
         if (value === answer.join('')) {
+            this.setState((prevState) => {
+                return {
+                    result: value + ' 홈런!!',
+                    value: ''
+                }
+            });
+            alert('게임을 다시 시작합니다!!');
             this.setState({
-                result: value + ' 홈런!!',
-                value: ''
+                value: '',
+                answer: getNumbers(),
+                tries: []
             })
         } else {
             const answerArray = value.split('').map((v) => parseInt(v));
