@@ -1,6 +1,5 @@
-const React = require("react");
-const {Component} = React;
-const Try = require("./Try");
+import React, {PureComponent, createRef} from 'react';
+import Try from './Try';
 
 function getNumbers() {
     const candidate = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -12,7 +11,7 @@ function getNumbers() {
     return array;
 }
 
-class NumberBaseBall extends Component {
+class NumberBaseBall extends PureComponent {
     state = {
         result: '',
         value: '',
@@ -20,10 +19,11 @@ class NumberBaseBall extends Component {
         tries: []
     }
 
+    inputRef = createRef();
+
     onSubmitForm = (e) => {
         const {answer, value, tries} = this.state
         e.preventDefault();
-        console.log(answer)
         if (value === answer.join('')) {
             this.setState((prevState) => {
                 return {
@@ -71,6 +71,7 @@ class NumberBaseBall extends Component {
                 })
             }
         }
+        this.inputRef.current.focus();
     };
 
     onChangeInput = (e) => {
@@ -79,18 +80,18 @@ class NumberBaseBall extends Component {
         });
     };
 
+
     render() {
         const {result, value, tries} = this.state;
         return (
             <>
                 <h1>{result}</h1>
                 <form onSubmit={this.onSubmitForm}>
-                    <input maxLength={4} value={value} onChange={this.onChangeInput}/>
+                    <input ref={this.inputRef} maxLength={4} value={value} onChange={this.onChangeInput}/>
+                    <button>입력!!</button>
                 </form>
                 <div>
                     시도: {tries.length}
-                </div>
-                <div>
                 </div>
                 <ul>
                     {tries.map((v, i) => {
@@ -104,4 +105,4 @@ class NumberBaseBall extends Component {
     }
 }
 
-module.exports = NumberBaseBall;
+export default NumberBaseBall;

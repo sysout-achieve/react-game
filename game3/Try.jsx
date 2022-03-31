@@ -1,19 +1,33 @@
-const React = require("react");
-const {Component} = React;
+import React, {PureComponent, memo} from 'react';
 
-class Try extends Component {
-    render() {
-        return (
-            <li>
-                <div>
-                    <b>{this.props.tryInfo.try}</b>
-                </div>
-                <div>
-                    -> {this.props.tryInfo.result}
-                </div>
-            </li>
-        )
-    }
-}
+// class Try extends PureComponent {
+//     render() {
+//         const {tryInfo} = this.props;
+//         return (
+//             <li>
+//                 <div>
+//                     <b>{tryInfo.try}</b>
+//                 </div>
+//                 <div>
+//                     -> {tryInfo.result}
+//                 </div>
+//             </li>
+//         )
+//     }
+// }
 
-module.exports = Try;
+const Try = memo(({tryInfo}) => {
+    return (
+        <li>
+            <div>
+                <b>{tryInfo.try}</b>
+            </div>
+            <div>
+                -> {tryInfo.result}
+            </div>
+        </li>
+    )
+})
+
+export default Try;
+
