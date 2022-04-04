@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from "react";
+import React, {useState, useRef, useEffect, useMemo, useCallback} from "react";
 import Ball from "./Ball";
 
 function getWinNumbers() {
@@ -14,7 +14,8 @@ function getWinNumbers() {
 }
 
 const LottoHooks = () => {
-    const [winNumbers, setWinNumbers] = useState(getWinNumbers());
+    const lottoNumbers = useMemo(()=> getWinNumbers(), []);
+    const [winNumbers, setWinNumbers] = useState(lottoNumbers);
     const [winBalls, setWinBalls] = useState([]);
     const [bonus, setBonus] = useState(false);
     const [redo, setRedo] = useState(false);
@@ -29,17 +30,16 @@ const LottoHooks = () => {
         }
     }, [timeouts.current])
 
-    const onClickRedo = () => {
+    const onClickRedo = useCallback(() => {
         setWinNumbers(getWinNumbers());
         setWinBalls([]);
         setBonus(null);
         setRedo(false);
         timeouts.current = [];
         motionStart()
-    }
+    },[]);
 
     const motionStart = () => {
-        console.log('useEffect');
         for (let i = 0; i < winNumbers.length - 1; i++) {
             timeouts.current[i] = setTimeout(() => {
                 setWinBalls((prevBalls) => [...prevBalls, winNumbers[i]])
