@@ -56,7 +56,6 @@ const plantMine = (row, cell, mine) => {
         const hor = shuffle[i] % cell;
         data[ver][hor] = CODE.MINE;
     }
-    console.log(data);
     return data;
 };
 
