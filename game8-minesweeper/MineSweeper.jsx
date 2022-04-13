@@ -1,4 +1,4 @@
-import React, {createContext, useEffect, useMemo, useReducer} from "react";
+import React, {createContext, memo, useEffect, useMemo, useReducer} from "react";
 import Table from "./Table";
 import Form from "./Form";
 
@@ -225,7 +225,7 @@ const reducer = (state, action) => {
 };
 
 
-const MineSweeper = () => {
+const MineSweeper = memo(() => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const {tableData, halted, timer, result} = state;
     const value = useMemo(() => ({
@@ -251,7 +251,7 @@ const MineSweeper = () => {
             <Table/>
             <div>{result}</div>
         </TableContext.Provider>
-    )
-}
+    );
+});
 
 export default MineSweeper;
